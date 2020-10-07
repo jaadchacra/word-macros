@@ -125,7 +125,7 @@ Sub FormatDocument()
             Else
                 para.LeftIndent = firstIndent
             End If
-            
+
             '--- Capitalize first letter in first word of every sentence
             If StrComp(Left(para.Range.Words(1), 1), UCase(Left(para.Range.Words(1), 1)), vbBinaryCompare) = 1 Then
                 para.Range.Words(1).Case = wdTitleWord
@@ -313,7 +313,6 @@ Sub SelectionIncrementHeadings()
     Next para
     '--- Refresh needed to show the changes just made
     Application.ScreenRefresh
-    Call FullFormat
 End Sub
 Sub SelectionDecrementHeadings()
     Dim para As Paragraph
@@ -337,7 +336,6 @@ Sub SelectionDecrementHeadings()
     Next para
     '--- Refresh needed to show the changes just made
     Application.ScreenRefresh
-    Call FullFormat
 End Sub
 Sub SelectionClearHeaderNumbers()
     Dim para As Paragraph
@@ -649,6 +647,81 @@ Sub RemoveNumbering()
         para.Range.Words(1) = i & "- " & para.Range.Words(1)
         i = i + 1
     Next para
-    
-    Call FormatDocument
+End Sub
+
+Sub EmptyShit()
+''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+''''''''''''' Everything Below here is to Manipulate New Text ''''''''''''''''''''''''''
+
+''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+End Sub
+Sub SelectionWordsToTitleCase()
+'
+' Keeping this only for reference if changing words in selection is required
+'
+    For Each wrd In Selection.Range.Words
+            wrd.Case = wdTitleWord
+    Next wrd
+End Sub
+Sub RemoveTabsFromNotepad()
+    If Selection.Type <> wdNoSelection Then
+        Selection.HomeKey Unit:=wdStory, Extend:=wdMove
+    End If
+    Selection.Find.ClearFormatting
+    Selection.Find.Replacement.ClearFormatting
+    With Selection.Find
+        .Text = "^p^t"
+        .Replacement.Text = "^p"
+        .Forward = True
+        .Wrap = wdFindContinue
+        .Format = False
+    End With
+    Selection.Find.Execute Replace:=wdReplaceAll
+End Sub
+Sub SelectionSeparateByPunct()
+'
+' RemoveNumbering Macro
+' Shortcut = ctrl + Alt + down
+'
+    Dim wrdCount   As Integer
+    Dim selectionCount   As Integer
+    wrdCount = 1
+    selectionCount = Selection.Range.Words.Count
+    For Each wrd In Selection.Range.Words
+        If wrdCount < selectionCount Then
+            ' Add only one new line for comma, two for the rest
+            If StrComp(Selection.Range.Words(wrdCount), ", ", vbBinaryCompare) = 0 Then
+                    Selection.Range.Words(wrdCount).Text = Selection.Range.Words(wrdCount).Text & vbNewLine
+                    wrdCount = wrdCount + 1
+                    selectionCount = selectionCount + 1
+                    GoTo NextIteration
+            End If
+            If StrComp(Selection.Range.Words(wrdCount), ". ", vbBinaryCompare) = 0 Then
+                    Selection.Range.Words(wrdCount).Text = Selection.Range.Words(wrdCount).Text & vbNewLine & vbNewLine
+                    wrdCount = wrdCount + 2
+                    selectionCount = selectionCount + 2
+                    GoTo NextIteration
+            End If
+            If StrComp(Selection.Range.Words(wrdCount), "! ", vbBinaryCompare) = 0 Then
+                    Selection.Range.Words(wrdCount).Text = Selection.Range.Words(wrdCount).Text & vbNewLine & vbNewLine
+                    wrdCount = wrdCount + 2
+                    selectionCount = selectionCount + 2
+                    GoTo NextIteration
+            End If
+            If StrComp(Selection.Range.Words(wrdCount), "? ", vbBinaryCompare) = 0 Then
+                    Selection.Range.Words(wrdCount).Text = Selection.Range.Words(wrdCount).Text & vbNewLine & vbNewLine
+                    wrdCount = wrdCount + 2
+                    selectionCount = selectionCount + 2
+                    GoTo NextIteration
+            End If
+            If StrComp(Selection.Range.Words(wrdCount), "!! ", vbBinaryCompare) = 0 Then
+                    Selection.Range.Words(wrdCount).Text = Selection.Range.Words(wrdCount).Text & vbNewLine & vbNewLine
+                    wrdCount = wrdCount + 2
+                    selectionCount = selectionCount + 2
+                    GoTo NextIteration
+            End If
+        End If
+NextIteration:
+        wrdCount = wrdCount + 1
+    Next wrd
 End Sub
