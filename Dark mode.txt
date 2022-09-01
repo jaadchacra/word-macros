@@ -1,0 +1,6 @@
+Change the background into Dark
+	File -> Account -> Office Theme -> Black
+
+
+Change the page color to white
+	View -> Switch Modes

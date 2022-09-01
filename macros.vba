@@ -1,7 +1,7 @@
 Sub AutoOpen()
     '--- Runs automatically when document is opened
-    ActiveWindow.ActivePane.View.Zoom.Percentage = 64
-    ActiveWindow.ActivePane.View.Zoom.Percentage = 64
+    ActiveWindow.ActivePane.View.Zoom.Percentage = 67
+    ActiveWindow.ActivePane.View.Zoom.Percentage = 67
     ActiveWindow.DocumentMap = True
     '--- Because Selection Line below gives error when in ReadingMode
     On Error Resume Next
@@ -16,7 +16,7 @@ Sub fitpagezoom()
     ActiveWindow.ActivePane.DisplayRulers = Not ActiveWindow.ActivePane. _
         DisplayRulers
     ActiveWindow.DocumentMap = True
-    ActiveWindow.ActivePane.View.Zoom.Percentage = 64
+    ActiveWindow.ActivePane.View.Zoom.Percentage = 67
 End Sub
 Sub DeleteLine()
     '--- Shortcut ctrl+x
@@ -127,9 +127,9 @@ Sub FormatDocument()
             End If
 
             '--- Capitalize first letter in first word of every sentence
-            If StrComp(Left(para.Range.Words(1), 1), UCase(Left(para.Range.Words(1), 1)), vbBinaryCompare) = 1 Then
-                para.Range.Words(1).Case = wdTitleWord
-            End If
+            '--- If StrComp(Left(para.Range.Words(1), 1), UCase(Left(para.Range.Words(1), 1)), vbBinaryCompare) = 1 Then
+                '--- para.Range.Words(1).Case = wdTitleWord
+            '--- End If
         End If
     Next para
     '--- Refresh needed to show the changes just made
@@ -280,11 +280,13 @@ Sub Normalize()
 ' Normalize Macro
 ' Imports Normal Styles and Sets Margins
 '
-    ActiveDocument.CopyStylesFromTemplate ("C:\Users\Jaad Chacra\AppData\Local\Packages\Microsoft.Office.Desktop_8wekyb3d8bbwe\LocalCache\Roaming\Microsoft\Templates\Normal.dotm")
+    ActiveDocument.CopyStylesFromTemplate ("C:\Users\jaadc\AppData\Roaming\Microsoft\Templates\Normal.dotm")
     ActiveDocument.PageSetup.LeftMargin = InchesToPoints(0.5)
     ActiveDocument.PageSetup.RightMargin = InchesToPoints(0.5)
     ActiveDocument.PageSetup.TopMargin = InchesToPoints(0.5)
     ActiveDocument.PageSetup.BottomMargin = InchesToPoints(0.5)
+    ActiveDocument.Range.Select
+    Selection.Font.Name = "Montserrat"
 End Sub
 Sub SelectionIncrementHeadings()
     Dim para As Paragraph
@@ -684,40 +686,11 @@ Sub SelectionSeparateByPunct()
 ' Shortcut = ctrl + Alt + down
 '
     Dim wrdCount   As Integer
-    Dim selectionCount   As Integer
     wrdCount = 1
-    selectionCount = Selection.Range.Words.Count
     For Each wrd In Selection.Range.Words
-        If wrdCount < selectionCount Then
-            ' Add only one new line for comma, two for the rest
-            If StrComp(Selection.Range.Words(wrdCount), ", ", vbBinaryCompare) = 0 Then
-                    Selection.Range.Words(wrdCount).Text = Selection.Range.Words(wrdCount).Text & vbNewLine
-                    wrdCount = wrdCount + 1
-                    selectionCount = selectionCount + 1
-                    GoTo NextIteration
-            End If
-            If StrComp(Selection.Range.Words(wrdCount), ". ", vbBinaryCompare) = 0 Then
-                    Selection.Range.Words(wrdCount).Text = Selection.Range.Words(wrdCount).Text & vbNewLine & vbNewLine
-                    wrdCount = wrdCount + 2
-                    selectionCount = selectionCount + 2
-                    GoTo NextIteration
-            End If
-            If StrComp(Selection.Range.Words(wrdCount), "! ", vbBinaryCompare) = 0 Then
-                    Selection.Range.Words(wrdCount).Text = Selection.Range.Words(wrdCount).Text & vbNewLine & vbNewLine
-                    wrdCount = wrdCount + 2
-                    selectionCount = selectionCount + 2
-                    GoTo NextIteration
-            End If
-            If StrComp(Selection.Range.Words(wrdCount), "? ", vbBinaryCompare) = 0 Then
-                    Selection.Range.Words(wrdCount).Text = Selection.Range.Words(wrdCount).Text & vbNewLine & vbNewLine
-                    wrdCount = wrdCount + 2
-                    selectionCount = selectionCount + 2
-                    GoTo NextIteration
-            End If
-            If StrComp(Selection.Range.Words(wrdCount), "!! ", vbBinaryCompare) = 0 Then
-                    Selection.Range.Words(wrdCount).Text = Selection.Range.Words(wrdCount).Text & vbNewLine & vbNewLine
-                    wrdCount = wrdCount + 2
-                    selectionCount = selectionCount + 2
+        If wrdCount < Selection.Range.Words.Count Then
+            If StrComp(wrd, ". ", vbBinaryCompare) = 0 Then
+                    wrd.Text = vbNewLine
                     GoTo NextIteration
             End If
         End If
@@ -725,3 +698,18 @@ NextIteration:
         wrdCount = wrdCount + 1
     Next wrd
 End Sub
+Sub pasteAsText()
+'
+' pasteAsText Macro
+'
+'
+    Selection.PasteAndFormat (wdFormatPlainText)
+End Sub
+Sub OpenNavPaneHeadings()
+'--- Shortcut ctrl+D
+  SendKeys "^f", True
+
+  SendKeys "{TAB 3}"
+
+End Sub
+

@@ -1,0 +1,7 @@
+These are already applied to the Normal.doc provided in this folder
+Note that they are in inches
+
+Top = 0.5"
+Left = 0.5"
+Right = 0.5"
+Bottom = 0.5"

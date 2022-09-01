@@ -1,0 +1,12 @@
+If you are able to do this then you don't need to do any manual setup for shortcuts/macros (99% sure about this)
+
+Right Click Copy the normal.dotm word file you want
+Open Word
+Click File Tab
+Click Browse
+Browse into C:\Users\usernamehere\AppData\Roaming\Microsoft\Templates
+Paste the normal.dotm file you copied and replace existing
+Done
+
+
+PS: The old path used to be "C:\Users\usernamehere\AppData\Local\Packages\Microsoft.Office.Desktop_8wekyb3d8bbwe\LocalCache\Roaming\Microsoft\Templates\Normal.dotm"

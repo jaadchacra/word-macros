@@ -1,0 +1,9 @@
+https://www.dummies.com/software/microsoft-office/word/how-to-import-styles-from-other-documents-in-word-2013/
+1- Open Styles Pane (arrow under the headings)
+2- Manage Styles Button (with checkmark) 
+3- Import Button
+4- Highlight all styles on the right side (normal.dotm)
+5- Click Copy to left button
+6- Override
+
+Don't forget to change all the Margins to 0.5''

@@ -1,0 +1,28 @@
+If you go to Microsoft Store and on top right click the three dots
+	Click Downloads and Updates
+	All owned
+	Office Home & Business 2019
+	Click again on Office Home & Business 2019
+	In Top Questions one of them is How do I download, install, reinstall, activate, or update Office?
+	Click the link for Microsoft Account page in the answer
+	OR
+	Simply go to your Microsoft Account page
+
+Open Microsoft Account Page
+	https://account.microsoft.com/services?ru=https%3A%2F%2Faccount.microsoft.com%2Fservices%2F&destrt=services-landing&refd=account.microsoft.com&refp=signedout-index
+Go to Services and Subscriptions
+
+Install Office
+	In case the setup is no longer downloadable, I put a copy of it in same folder as this (Microsoft Word Settigns)
+	Run the OfficeSetup.exe (it will install Word)
+
+Now you need the Normal.dotm template
+	Check "How to replace Normal.dotm" file in same folder as this (Microsoft Word Settigns)
+
+Now you need to Copy in the Macros
+
+Re-Add all the Keyboard Shortcuts -.-
+	Right click ribbon -> Customize -> Customize Keyboard Shortcuts
+	You need to add Macros shortcuts as well
+
+Create Macros button shortcut
